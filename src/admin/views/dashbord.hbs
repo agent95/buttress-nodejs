@@ -1,0 +1,168 @@
+           <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="../../img/favicon.png" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.15.1/css/pro.min.css">
+  <link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.css">
+    <link rel="stylesheet" type="text/css" href="../css/datepicker.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script> 
+</head>
+<style>
+body{
+font: 400 15px/1.8 Lato, sans-serif;
+background: url("http://svmr.apphb.com/assets/img/backgrounds/1.jpg");
+background-position: top;
+width: 100%;
+height: 80%;
+overflow: -moz-scrollbars-vertical;
+overflow-x: hidden;
+overflow-y: auto;
+}
+.nav{
+font-size: large;
+padding-left: 5px;
+}
+.navbar{
+    background: transparent !important;
+    box-shadow: 0 0 8px rgb(156, 153, 153), 0 0 8px rgb(71, 70, 69), 0 0 8px rgb(221, 221, 221);
+}
+.card{
+background:rgb(245, 229, 212);
+border-radius: 3px !important;
+padding: 20px;
+margin-bottom: 2% !important;
+box-shadow: 0 0 8px tomato, 0 0 8px rgb(236, 76, 48), 0 0 8px tomato;
+align-items: center;
+}
+.card:hover{
+background:rgb(255, 255, 255);
+color: rgb(255, 255, 255) !important;
+}
+.row{
+margin-left: 6%;
+}
+</style>
+<body>
+{{!-- navabr nd sidebar section --}}
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container-fluid">
+        <a class="nav-link active" style="text-decoration:none !important; font-size:20px"><i class="fas fa-align-justify" style="color: tomato;"  data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample"></i></a>
+        <a class="nav-link nav-item navbar-collapse active h4 text-primary" aria-current="page" href="#"><b style="color: tomato;">Dashboard</b></a>
+        <ul class="nav nav-tabs col-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#"><img src="../img/Truso_logo.png"  style="width:80px"alt=""></a>
+            </li>    
+        </ul>
+    </div>
+</nav>  
+<div class=" abcdefg offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" style="width: 280px;">
+    <div class="offcanvas-header text-center">
+        <h2 class="offcanvas-title" id="offcanvasExampleLabel"><i class="fas fa-users" style="color: rgb(121, 2, 2);"></i></h2>
+    </div><hr>
+    <div class="offcanvas-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item collapsed" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><P class="d-flex justify-content-between" style="color:rgb(121, 2, 2)"><span><style></style>USER DETAILS</span><i class="fad fa-chevron-double-down"></i></P>
+                <ul class="list-group list-group-flush collapse" id="collapseExample">
+                    <li class="list-group-item"><a href="/admin/showusers" style="text-decoration: none; color:rgb(121, 2, 2)"><p class="d-flex justify-content-between"><span>show User</span> <i class="fad fa-eye"></i></p></a></li>
+                    <li class="list-group-item"><a href="/admin/add_userByAdmin" style="text-decoration: none; color:rgb(121, 2, 2)"><p class="d-flex justify-content-between"><span>Add User </span><i class="far fa-user-plus"></i></p></a></li>
+                </ul>
+            </li>
+            <li class="list-group-item collapsed" data-bs-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1"><P class="d-flex justify-content-between" style="color:rgb(121, 2, 2)"><span>Admin </span> <i class="fad fa-chevron-double-down"></i></P>
+                <ul class="list-group list-group-flush collapse" id="collapseExample1">
+                    <li class="list-group-item"><a href="/admin/register_Admin_view" style="text-decoration: none; color:rgb(121, 2, 2)"><p class="d-flex justify-content-between"><span>Admin Registration</span> <i class="far fa-user-plus"></i></p></a></li>
+                </ul>
+            </li>
+            <li class="list-group-item collapsed" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2"><P class="d-flex justify-content-between" style="color:rgb(121, 2, 2)"><span>Rooms </span> <i class="fad fa-chevron-double-down"></i></P>
+                <ul class="list-group list-group-flush collapse" id="collapseExample2">
+                    <li class="list-group-item"><a href="/admin/communityRoom" style="text-decoration: none; color:rgb(121, 2, 2)"><p class="d-flex justify-content-between"><span>show communityRoom</span> <i class="fad fa-eye"></i></p></a></li>
+                </ul>
+            </li>
+            <li class="list-group-item collapsed" data-bs-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample3"><P class="d-flex justify-content-between" style="color:rgb(121, 2, 2)"><span>Resources </span> <i class="fad fa-chevron-double-down"></i></P>
+                <ul class="list-group list-group-flush collapse" id="collapseExample3">
+                    <li class="list-group-item"><a href="/admin/showresources" style="text-decoration: none; color:rgb(121, 2, 2)"><p class="d-flex justify-content-between"><span>show Resources</span> <i class="fad fa-eye"></i></p></a></li>
+                    <li class="list-group-item"><a href="/admin/ShowFolders/0" style="text-decoration: none; color:rgb(121, 2, 2)"><p class="d-flex justify-content-between"><span>show Folders</span> <i class="fad fa-eye"></i></p></a></li>
+                    <li class="list-group-item"><a href="/admin/add_Folder" style="text-decoration: none; color:rgb(121, 2, 2)"><p class="d-flex justify-content-between"><span>Add Folder</span> <i class="fad fa-eye"></i></p></a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <footer class="text-center">
+        <img src="../../img/app_screen.png" style="width:30%"><br>
+        <h6 class="footer-titles">help.buttress@gmail.com</h6>
+        <a href="https://www.facebook.com/truso.app.7" style="color: tomato; text-decoration:none"><i class="fab fa-facebook-square" aria-hidden="true"></i></a>
+        &nbsp;<a href="https://twitter.com/jointruso/" style="color: tomato; text-decoration:none"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+        &nbsp;<a href="https://www.instagram.com/jointruso/" style="color: tomato; text-decoration:none"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+    </footer>
+</div>
+{{!-- navabr nd sidebar section  END--}}
+<div class="container" style="margin-top: 10%;">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card p-1">
+                <div class="card-title text-center">
+                    <h5 class="text-primary"><b  style="color: rgb(24, 22, 22);">Users</b> &nbsp;<i class="fas fa-users"></i></h5><hr>
+                </div>
+                <div class="card-body">
+                    <h4 class="text-primary m-auto" ></h4>
+                   <a href="/users-datatable" style="text-decoration: none;">users</a><br>
+                   <a href="/site-insert" style="text-decoration: none;">Add Site</a><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $('#count').each(function () {
+    $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+    }, {
+        duration: 4000,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+});
+$('#count1').each(function () {
+    $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+    }, {
+        duration: 4000,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+});
+
+$('#count2').each(function () {
+    $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+    }, {
+        duration: 4000,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+});
+
+$('#count3').each(function () {
+    $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+    }, {
+        duration: 4000,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+});
+</script>
+</html>
