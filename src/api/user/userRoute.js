@@ -39,15 +39,20 @@ userRoutes.post('/emailLogin', userController.emaillogin);
 userRoutes.post('/socialLogin', userController.sociallogin);
 userRoutes.post('/verifyMobile', userController.verify);
 userRoutes.post('/resendOTP', userController.resendOtp);
-userRoutes.get('/getProfile', auth, userController.getProfile);
-userRoutes.put('/updateProfile', auth, upload.single("image"), userController.updateprofile);
-userRoutes.post('/workerStatus', auth, userController.add_workerStatus);
-userRoutes.put('/endworkingStatus', auth, userController.end_workerStatus);
-userRoutes.put('/uploadsImage', auth, upload.single("image"), userController.uploadsImg);
 userRoutes.post("/updateUserNote", auth, userController.updateUserNote_page);
+userRoutes.post('/workerStatus', auth, userController.add_workerStatus);
+
 userRoutes.get("/timesheet", auth, userController.timesheet);
 userRoutes.get('/timesheet-user',auth, userController.timesheet_user_details);
+userRoutes.get('/getProfile', auth, userController.getProfile);
+userRoutes.get('/getTradeCategories', auth, userController.getTradeCategories);
+userRoutes.get('/getEntryDetails', auth, userController.getEntryDetails);
+
 userRoutes.put("/edittimesheet/:id",auth, userController.edit_timesheet);
+userRoutes.put('/updateEntryDetails', auth, userController.updateEntryDetails);
+userRoutes.put('/updateProfile', auth, upload.single("image"), userController.updateprofile);
+userRoutes.put('/endworkingStatus', auth, userController.end_workerStatus);
+userRoutes.put('/uploadsImage', auth, upload.single("image"), userController.uploadsImg);
 
 
 

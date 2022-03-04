@@ -1,6 +1,7 @@
 const User = require("../../models/user.js");
 const workingStatusSchema = require("../../models/workerStatus");
 const SiteModel = require("../../models/siteModel.js");
+const TradeCategories = require("../../models/Trade_Category.js");
 const bcrypt = require("bcrypt");
 const moment = require('moment');
 const mongoose = require('mongoose');
@@ -120,6 +121,16 @@ let userController = {
             return ErrorResponse(res, "Something is wrong!");
         }
     },
+    getTradeCategories: async(_req,res) => {
+        try{
+            const data = await TradeCategories.find();
+            return successResponseWithData(res, "Success Trade Categories", data);
+        } 
+        catch(e){
+            console.log(e);
+            return ErrorResponse(res,"Error Trade Categories");
+        }
+    },
     resendOtp: async(req, res) => {
         try {
             const data = await User.findOne({ mobile: req.body.mobile });
@@ -230,6 +241,50 @@ let userController = {
 
     },
     add_workerStatus: async(req, res) => {
+        try{
+            if(req.body.address) {
+                const site = {};
+                site['site_address'] = req.body.address;
+                let siteDetails = await SiteModel.findOne(site);
+                let new_site;
+
+                if(!siteDetails){
+                    let site_info = new SiteModel(site);
+                    new_site = await site_info.save();
+                }
+
+                let myworking = new workingStatusSchema({
+                    worker_id: req.user._id,
+                    constructionSite_id: siteDetails ? siteDetails._id : new_site._id,
+                    site_address: req.body.address,
+                    start_time: req.body.start_time,
+                    start_Date:moment(req.body.start_time).format("YYYY-MM-DD"),
+                    time_zone:req.body.time_zone,
+                    status: 'Working'
+                });
+                let myworkSave = await myworking.save();
+                //let workStatus_id = { workStatus_id: myworkSave._id, start_time: myworkSave.start_time, constructionSite_id: myworkSave.constructionSite_id, site_Name: siteDetails?.site_name || '' };
+                return successResponseWithData(res, "Success 01", myworkSave);
+            }
+            else {
+                let myworking = new workingStatusSchema({
+                    worker_id: req.user._id,
+                    start_time: req.body.start_time,
+                    start_Date:moment(req.body.start_time).format("YYYY-MM-DD"),
+                    time_zone:req.body.time_zone,
+                    status: 'Working'
+                });
+                let myworkSave = await myworking.save();
+                //let workStatus_id = { workStatus_id: myworkSave._id, start_time: myworkSave.start_time, site_Name: ''};
+                return successResponseWithData(res, "Success 02", myworkSave);
+            }
+        }
+        catch(e){
+            return ErrorResponse(res, "Something is wrong add_workerStatus 04 !");
+        }
+    },
+/*
+    zz_add_workerStatus: async(req, res) => {
         try {
             if (req.body.address || req.body.code) {
                 let whereObj = {};
@@ -239,6 +294,9 @@ let userController = {
                     whereObj['site_code'] = req.body.code;
                 }
                 let siteDetails = await SiteModel.findOne(whereObj);
+
+                // if the site exists....
+
                 if (!siteDetails) {
                     return ErrorResponse(res, "Please Enter Correct Address Or Code For The Construction Site That You Want To Select");
                 } else {
@@ -272,6 +330,7 @@ let userController = {
             return ErrorResponse(res, "Something is wrong!");
         }
     },
+    */
     end_workerStatus: async(req, res) => {
         try {
             let dataToSet = {};
@@ -286,14 +345,18 @@ let userController = {
             dataToSet.end_time = moment(req.body.end_time).format("YYYY-MM-DDTHH:mm:ss");
             dataToSet.status = 'Completed';
             dataToSet.note = req.body.note;
-            let documents = await workingStatusSchema.findOneAndUpdate({ worker_id: req.user._id, status: 'Working' }, { $set: dataToSet }, { returnOriginal: false });
+            dataToSet.tasks = req.body.tasks;
+            let documents = await workingStatusSchema.findOneAndUpdate({ 
+                worker_id: req.user._id, 
+                status: 'Working' }, { $set: dataToSet }, { returnOriginal: false });
             console.log(documents);
-            return successResponseWithData(res, "Success", documents);
+            return successResponseWithData(res, "Success updating entry details", documents);
         } catch (error) {
             console.log(error);
             return ErrorResponse(res, "Something is wrong!");
         }
     },
+
     uploadsImg: async(req, res) => {
         try {
             const deleteOld = await User.findOne({ _id: req.user._id });
@@ -335,6 +398,40 @@ let userController = {
         }
     },
     timesheet: async(req, res) => {
+        try{
+            const start_time = moment(req.query.start_time).format("YYYY-MM-DD");
+            const end_time = moment(req.query.end_time).add(1, "days").subtract(1, "minutes").format("YYYY-MM-DD");
+            const data = await workingStatusSchema.find({ start_Date: { $gte: start_time, $lte: end_time }, status: { $ne: "Working" }, worker_id: req.user._id });
+            return successResponseWithData(res, "Success from timesheets", data);
+        }
+        catch(e){
+            return ErrorResponse(e, "Something is wrong with the timesheets!");
+        }
+    },
+    getEntryDetails: async(req,res) => {
+        try{
+            let entryId = mongoose.Types.ObjectId(req.query.entry_id);
+            const data = await workingStatusSchema.findOne({_id:entryId});
+            return successResponseWithData(res, "Success from entry details", data);
+        }
+        catch(e){
+            return ErrorResponse(e, "Something is wrong with entry details!");
+        }
+    },
+
+    updateEntryDetails: async(req,res) => {
+        try{
+            let entryId = mongoose.Types.ObjectId(req.body.entryId);
+            const data = await workingStatusSchema.updateOne({_id:entryId},{ $push: { tasks: req.body.task } });
+            return successResponseWithData(res, "Success from update entry details", data);
+        }
+        catch(e){
+            return ErrorResponse(e, "Something is wrong with update entry details!");
+        }
+    },
+
+
+    zz_timesheet: async(req, res) => {
         try {
             let start_time = moment(req.query.start_time).format("YYYY-MM-DD");
             let end_time = moment(req.query.end_time).add(1, "days").subtract(1, "minutes").format("YYYY-MM-DD");

@@ -1,5 +1,27 @@
 const mongoose=require("mongoose");
 
+// const taskSchema = new mongoose.Schema({
+//     tradeCategory: {
+//         type: mongoose.Schema.Types.ObjectId,
+//         ref: 'trade_categories'
+//     }, 
+//     taskDescription: {
+//         type: String
+//     }
+// });
+
+// const taskSchema = new mongoose.Schema({
+//     tradeCategory: {
+//         type: String
+//     }, 
+//     taskDescription: {
+//         type: String
+//     },
+//     taskTime:{
+//         type: String
+//     }
+// });
+
 let workerStatusSchema= new mongoose.Schema({
     worker_id:{
             type:mongoose.Schema.Types.ObjectId,
@@ -8,6 +30,9 @@ let workerStatusSchema= new mongoose.Schema({
     constructionSite_id:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'siteinfo'
+    },
+    site_address:{
+        type:String
     },
     start_time:{
         type:String
@@ -24,6 +49,7 @@ let workerStatusSchema= new mongoose.Schema({
     note:{
         type:String
     },
+    tasks:[],
     time_zone:{
         type:String
     },
