@@ -422,7 +422,7 @@ let userController = {
     updateEntryDetails: async(req,res) => {
         try{
             const entryId = mongoose.Types.ObjectId(req.body.entryId);
-            const tasks = req.body.task;
+            const tasks = req.body.tasks;
             const end_time = req.body.end_time;
             const total_working_hours = req.body.total_working_hours;
             const data = await workingStatusSchema.updateOne({_id:entryId},{ $push: { tasks: tasks }, end_time: end_time, total_working_hours: total_working_hours, status: 'Completed' });
