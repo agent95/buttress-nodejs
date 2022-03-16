@@ -52,6 +52,7 @@ userRoutes.put("/edittimesheet/:id",auth, userController.edit_timesheet);
 userRoutes.put('/updateEntryDetails', auth, userController.updateEntryDetails);
 userRoutes.put('/updateEntryDate', auth, userController.updateEntryDate);
 userRoutes.put('/updateSiteAddress', auth, userController.updateSiteAddress);
+userRoutes.put('/updateEntryTime', auth, userController.updateEntryTime);
 
 userRoutes.put('/removeTask', auth, userController.removeTask);
 userRoutes.put('/updateProfile', auth, upload.single("image"), userController.updateprofile);

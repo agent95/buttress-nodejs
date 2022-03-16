@@ -456,9 +456,21 @@ let userController = {
             return ErrorResponse(e, "Something is wrong with updateEntryDate!");
 
         }
-        
-
     },
+
+    updateEntryTime: async(req, res) => {
+        try{
+            const entryId = mongoose.Types.ObjectId(req.body.entryId);
+            const totalTaskTime = req.body.totalTaskTime;
+            const data = await workingStatusSchema.updateOne({_id:entryId},{ total_working_hours: totalTaskTime});
+                return successResponseWithData(res, "Success from updateEntryTime", data);
+        }
+        catch(e){
+            return ErrorResponse(e, "Something is wrong with updateEntryTime!");
+
+        }
+    },
+
     updateSiteAddress: async(req, res) => {
         try{
             const entryId = mongoose.Types.ObjectId(req.body.entryId);
