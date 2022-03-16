@@ -50,10 +50,15 @@ userRoutes.get('/getEntryDetails', auth, userController.getEntryDetails);
 
 userRoutes.put("/edittimesheet/:id",auth, userController.edit_timesheet);
 userRoutes.put('/updateEntryDetails', auth, userController.updateEntryDetails);
+userRoutes.put('/updateEntryDate', auth, userController.updateEntryDate);
+userRoutes.put('/updateSiteAddress', auth, userController.updateSiteAddress);
+
+userRoutes.put('/removeTask', auth, userController.removeTask);
 userRoutes.put('/updateProfile', auth, upload.single("image"), userController.updateprofile);
 userRoutes.put('/endworkingStatus', auth, userController.end_workerStatus);
 userRoutes.put('/uploadsImage', auth, upload.single("image"), userController.uploadsImg);
 
+userRoutes.delete('/removeEntry', auth, userController.removeEntryDetails);
 
 
 exports.userRoutes = userRoutes;

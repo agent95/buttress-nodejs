@@ -419,6 +419,18 @@ let userController = {
         }
     },
 
+    
+    removeEntryDetails: async(req,res) => {
+        try{
+            let entryId = mongoose.Types.ObjectId(req.query.entry_id);
+            const data = await workingStatusSchema.remove({_id:entryId});
+            return successResponseWithData(res, "Success from removeEntryDetails", data);
+        }
+        catch(e){
+            return ErrorResponse(e, "Something is wrong with entry details!");
+        }
+    },
+
     updateEntryDetails: async(req,res) => {
         try{
             const entryId = mongoose.Types.ObjectId(req.body.entryId);
@@ -433,6 +445,45 @@ let userController = {
         }
     },
 
+    updateEntryDate: async(req, res) => {
+        try{
+            const entryId = mongoose.Types.ObjectId(req.body.entryId);
+            const startDate = req.body.startDate;
+            const data = await workingStatusSchema.updateOne({_id:entryId},{ start_Date: startDate});
+                return successResponseWithData(res, "Success from updateEntryDate", data);
+        }
+        catch(e){
+            return ErrorResponse(e, "Something is wrong with updateEntryDate!");
+
+        }
+        
+
+    },
+    updateSiteAddress: async(req, res) => {
+        try{
+            const entryId = mongoose.Types.ObjectId(req.body.entryId);
+            const siteAddress =  req.body.siteAddress;
+            const data = await workingStatusSchema.updateOne({_id:entryId},{ site_address: siteAddress });
+                return successResponseWithData(res, "Success from updateSiteAddress", data);
+        }
+        catch(e){
+            return ErrorResponse(e, "Something is wrong with updateSiteAddress!");
+
+        }
+
+    },
+
+    removeTask: async(req, res) => {
+        try{
+            const entryId = mongoose.Types.ObjectId(req.body.entryId);
+            const task = req.body.task;
+            const data = await workingStatusSchema.updateOne({_id:entryId},{ $pull: { tasks: task }});
+            return successResponseWithData(res, "Success from update entry details", data);
+        }
+        catch(e){
+            return ErrorResponse(e, "Something is wrong with removeTask!");
+        }
+    },
 
     zz_timesheet: async(req, res) => {
         try {
