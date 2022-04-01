@@ -471,6 +471,20 @@ let userController = {
         }
     },
 
+    updateTimeInOut: async(req, res) => {
+        try{
+            const entryId = mongoose.Types.ObjectId(req.body.entryId);
+            const timeIn = req.body.timeIn;
+            const timeOut = req.body.timeOut;
+            const data = await workingStatusSchema.updateOne({_id:entryId},{ time_in: timeIn, time_out: timeOut});
+                return successResponseWithData(res, "Success from updateTimeInOut", data);
+        }
+        catch(e){
+            return ErrorResponse(e, "Something is wrong with updateTimeInOut!");
+
+        }
+    },
+
     updateSiteAddress: async(req, res) => {
         try{
             const entryId = mongoose.Types.ObjectId(req.body.entryId);

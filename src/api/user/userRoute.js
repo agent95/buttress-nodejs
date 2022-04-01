@@ -53,6 +53,7 @@ userRoutes.put('/updateEntryDetails', auth, userController.updateEntryDetails);
 userRoutes.put('/updateEntryDate', auth, userController.updateEntryDate);
 userRoutes.put('/updateSiteAddress', auth, userController.updateSiteAddress);
 userRoutes.put('/updateEntryTime', auth, userController.updateEntryTime);
+userRoutes.put('/updateTimeInOut', auth, userController.updateTimeInOut);
 
 userRoutes.put('/removeTask', auth, userController.removeTask);
 userRoutes.put('/updateProfile', auth, upload.single("image"), userController.updateprofile);

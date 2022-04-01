@@ -40,6 +40,12 @@ let workerStatusSchema= new mongoose.Schema({
     end_time:{
         type:String
     },
+    time_in:{
+        type:String
+    },
+    time_out:{
+        type:String
+    },
     status:{
         type:String
     },
